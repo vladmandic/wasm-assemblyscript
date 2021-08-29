@@ -1,0 +1,37 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 info pnpm": {
+    "err": {
+      "name": "Error",
+      "message": "Command failed with ENOENT: resizeMode: none,\nspawn resizeMode: ENOENT",
+      "code": "ENOENT",
+      "stack": "Error: Command failed with ENOENT: resizeMode: none,\nspawn resizeMode: ENOENT\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:282:19)\n    at onErrorNT (node:internal/child_process:480:16)\n    at processTicksAndRejections (node:internal/process/task_queues:83:21)"
+    }
+  },
+  "2 error pnpm": {
+    "errno": -2,
+    "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+    "syscall": "spawn resizeMode:",
+    "path": "resizeMode:",
+    "spawnargs": [
+      "none,"
+    ],
+    "originalMessage": "spawn resizeMode: ENOENT",
+    "shortMessage": "Command failed with ENOENT: resizeMode: none,\nspawn resizeMode: ENOENT",
+    "command": "resizeMode: none,",
+    "escapedCommand": "\"resizeMode:\" \"none,\"",
+    "failed": true,
+    "timedOut": false,
+    "isCanceled": false,
+    "killed": false,
+    "prefix": "/home/vlado/dev/wasm",
+    "err": {
+      "name": "Error",
+      "message": "Command failed with ENOENT: resizeMode: none,\nspawn resizeMode: ENOENT",
+      "code": "ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL",
+      "stack": "Error: Command failed with ENOENT: resizeMode: none,\nspawn resizeMode: ENOENT\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:282:19)\n    at onErrorNT (node:internal/child_process:480:16)\n    at processTicksAndRejections (node:internal/process/task_queues:83:21)"
+    }
+  }
+}
