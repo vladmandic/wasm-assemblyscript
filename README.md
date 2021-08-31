@@ -34,3 +34,4 @@ Use `npm dev` to start HTTP/HTTPS dev server for browser tests
 - <https://www.npmjs.com/package/as-wake>
 - <https://www.npmjs.com/package/as-bignum>
 - <https://www.npmjs.com/package/as-websocket>
+- <https://github.com/as2d/as2d>
