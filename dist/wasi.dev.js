@@ -163,7 +163,7 @@ function asmFunc(env) {
   $2 = $2 | 0;
   $3 = $3 | 0;
   $4 = $4 | 0;
-  var $6 = 0, $8 = 0, $10 = 0, $7 = 0, $9 = 0, $12 = 0, $13 = 0, $5 = 0, $55 = 0;
+  var $6 = 0, $8 = 0, $10 = 0, $7 = 0, $9 = 0, $12 = 0, $13 = 0, $5 = 0, $62 = 0;
   $5 = $0 + ($1 << 1 | 0) | 0;
   $6 = $2;
   while_continue_0 : while (1) {
@@ -173,6 +173,9 @@ function asmFunc(env) {
     if ($8 >>> 0 < 128 >>> 0) {
      HEAP8[$6 >> 0] = $8;
      $6 = $6 + 1 | 0;
+     if ($3 & !$8 | 0) {
+      return $6 - $2 | 0 | 0
+     }
     } else {
      if ($8 >>> 0 < 2048 >>> 0) {
       $9 = $8 >>> 6 | 0 | 192 | 0;
@@ -182,11 +185,11 @@ function asmFunc(env) {
      } else {
       if (($8 & 63488 | 0 | 0) == (55296 | 0)) {
        if ($8 >>> 0 < 56320 >>> 0) {
-        $55 = ($0 + 2 | 0) >>> 0 < $5 >>> 0
+        $62 = ($0 + 2 | 0) >>> 0 < $5 >>> 0
        } else {
-        $55 = 0
+        $62 = 0
        }
-       if ($55) {
+       if ($62) {
         $10 = HEAPU16[($0 + 2 | 0) >> 1] | 0;
         if (($10 & 64512 | 0 | 0) == (56320 | 0)) {
          $8 = 65536 + (($8 & 1023 | 0) << 10 | 0) | 0 | ($10 & 1023 | 0) | 0;
@@ -201,7 +204,7 @@ function asmFunc(env) {
        }
        if (($4 | 0) != (0 | 0)) {
         if (($4 | 0) == (2 | 0)) {
-         $lib_wasi_index_abort(64 | 0, 128 | 0, 739 | 0, 49 | 0);
+         $lib_wasi_index_abort(64 | 0, 128 | 0, 741 | 0, 49 | 0);
          abort();
         }
         $8 = 65533;
@@ -278,39 +281,38 @@ function asmFunc(env) {
   $1 = $1 | 0;
   $2 = $2 | 0;
   $3 = $3 | 0;
-  var $4 = 0, $6 = 0, $7 = 0, $5 = 0, $17 = 0, $31 = 0;
+  var $4 = 0, $6 = 0, $5 = 0, $7 = 0, $16 = 0, $30 = 0;
   $lib_bindings_wasi_snapshot_preview1_iovec_set_buf(0 | 0, 12 | 0);
   $4 = 12;
   HEAP32[$4 >> 2] = 1919902305;
   HEAP32[($4 + 4 | 0) >> 2] = 2112116;
   $4 = $4 + 7 | 0;
   if (($0 | 0) != (0 | 0)) {
-   $17 = $lib_string_String_get_length($0 | 0) | 0;
+   $16 = $lib_string_String_get_length($0 | 0) | 0;
    $argumentsLength = 3;
-   $4 = $4 + ($lib_string_String_UTF8_encodeUnsafe_varargs($0 | 0, $17 | 0, $4 | 0, 0 | 0, 0 | 0) | 0) | 0;
+   $4 = $4 + ($lib_string_String_UTF8_encodeUnsafe_varargs($0 | 0, $16 | 0, $4 | 0, 0 | 0, 0 | 0) | 0) | 0;
   }
   HEAP32[$4 >> 2] = 544106784;
   $4 = $4 + 4 | 0;
   if (($1 | 0) != (0 | 0)) {
-   $31 = $lib_string_String_get_length($1 | 0) | 0;
+   $30 = $lib_string_String_get_length($1 | 0) | 0;
    $argumentsLength = 3;
-   $4 = $4 + ($lib_string_String_UTF8_encodeUnsafe_varargs($1 | 0, $31 | 0, $4 | 0, 0 | 0, 0 | 0) | 0) | 0;
+   $4 = $4 + ($lib_string_String_UTF8_encodeUnsafe_varargs($1 | 0, $30 | 0, $4 | 0, 0 | 0, 0 | 0) | 0) | 0;
   }
   $5 = $4;
   $4 = $4 + 1 | 0;
   HEAP8[$5 >> 0] = 40;
   $6 = $lib_util_number_decimalCount32($2 | 0) | 0;
   $4 = $4 + $6 | 0;
-  do_continue_0 : while (1) {
+  do_loop_0 : while (1) {
    $5 = ($2 >>> 0) / (10 >>> 0) | 0;
    $4 = $4 - 1 | 0;
    HEAP8[$4 >> 0] = 48 + (($2 >>> 0) % (10 >>> 0) | 0) | 0;
    $2 = $5;
-   $7 = $2;
    if ($2) {
-    continue do_continue_0
+    continue do_loop_0
    }
-   break do_continue_0;
+   break do_loop_0;
   };
   $4 = $4 + $6 | 0;
   $7 = $4;
@@ -318,15 +320,15 @@ function asmFunc(env) {
   HEAP8[$7 >> 0] = 58;
   $6 = $lib_util_number_decimalCount32($3 | 0) | 0;
   $4 = $4 + $6 | 0;
-  do_continue_1 : while (1) {
+  do_loop_1 : while (1) {
    $7 = ($3 >>> 0) / (10 >>> 0) | 0;
    $4 = $4 - 1 | 0;
    HEAP8[$4 >> 0] = 48 + (($3 >>> 0) % (10 >>> 0) | 0) | 0;
    $3 = $7;
    if ($3) {
-    continue do_continue_1
+    continue do_loop_1
    }
-   break do_continue_1;
+   break do_loop_1;
   };
   $4 = $4 + $6 | 0;
   HEAP16[$4 >> 1] = 2601;
@@ -937,26 +939,30 @@ function asmFunc(env) {
  }
  
  function $lib_rt_itcms_interrupt() {
-  var i64toi32_i32$1 = 0, i64toi32_i32$0 = 0, $0 = 0, $3 = 0;
+  var i64toi32_i32$0 = 0, i64toi32_i32$1 = 0, $0 = 0, $9$hi = 0, $10$hi = 0, $5 = 0;
   $0 = (Math_imul(1024, 200) >>> 0) / (100 >>> 0) | 0;
-  do_continue_0 : while (1) {
+  do_loop_0 : while (1) {
    $0 = $0 - ($lib_rt_itcms_step() | 0) | 0;
    if (($lib_rt_itcms_state | 0) == (0 | 0)) {
     i64toi32_i32$0 = 0;
-    i64toi32_i32$1 = 0;
+    $9$hi = i64toi32_i32$0;
+    i64toi32_i32$0 = 0;
+    $10$hi = i64toi32_i32$0;
+    i64toi32_i32$0 = $9$hi;
+    i64toi32_i32$1 = $10$hi;
     i64toi32_i32$1 = __wasm_i64_mul($lib_rt_itcms_total | 0, i64toi32_i32$0 | 0, 200 | 0, i64toi32_i32$1 | 0) | 0;
     i64toi32_i32$0 = i64toi32_i32$HIGH_BITS;
-    $3 = i64toi32_i32$1;
+    $5 = i64toi32_i32$1;
     i64toi32_i32$1 = 0;
-    i64toi32_i32$1 = __wasm_i64_udiv($3 | 0, i64toi32_i32$0 | 0, 100 | 0, i64toi32_i32$1 | 0) | 0;
+    i64toi32_i32$1 = __wasm_i64_udiv($5 | 0, i64toi32_i32$0 | 0, 100 | 0, i64toi32_i32$1 | 0) | 0;
     i64toi32_i32$0 = i64toi32_i32$HIGH_BITS;
     $lib_rt_itcms_threshold = i64toi32_i32$1 + 1024 | 0;
     return;
    }
    if (($0 | 0) > (0 | 0)) {
-    continue do_continue_0
+    continue do_loop_0
    }
-   break do_continue_0;
+   break do_loop_0;
   };
   $lib_rt_itcms_threshold = $lib_rt_itcms_total + Math_imul(1024, ($lib_rt_itcms_total - $lib_rt_itcms_threshold | 0) >>> 0 < 1024 >>> 0) | 0;
  }
@@ -1229,7 +1235,7 @@ function asmFunc(env) {
   $2 = $2 | 0;
   $3 = $3 | 0;
   $4 = $4 | 0;
-  var $5 = 0, $6 = 0, i64toi32_i32$0 = 0, i64toi32_i32$1 = 0, $7 = 0, $27 = 0, $8 = 0, $9 = 0, $30 = 0, $30$hi = 0, $32 = 0, $32$hi = 0;
+  var $5 = 0, $6 = 0, i64toi32_i32$0 = 0, i64toi32_i32$1 = 0, $27 = 0, $8 = 0, $9 = 0, $30 = 0, $30$hi = 0, $32 = 0, $32$hi = 0, $7 = 0;
   $5 = $0 + ($1 << 1 | 0) | 0;
   $6 = $2 + ($3 << 1 | 0) | 0;
   if ($4 >>> 0 >= 4 >>> 0) {
@@ -1239,7 +1245,7 @@ function asmFunc(env) {
   }
   if ($27) {
    do_break_0 : {
-    do_continue_0 : while (1) {
+    do_loop_0 : while (1) {
      i64toi32_i32$0 = HEAP32[$5 >> 2] | 0;
      i64toi32_i32$1 = HEAP32[($5 + 4 | 0) >> 2] | 0;
      $30 = i64toi32_i32$0;
@@ -1256,11 +1262,10 @@ function asmFunc(env) {
      $5 = $5 + 8 | 0;
      $6 = $6 + 8 | 0;
      $4 = $4 - 4 | 0;
-     $7 = $4 >>> 0 >= 4 >>> 0;
-     if ($7) {
-      continue do_continue_0
+     if ($4 >>> 0 >= 4 >>> 0) {
+      continue do_loop_0
      }
-     break do_continue_0;
+     break do_loop_0;
     };
    }
   }
@@ -1334,11 +1339,11 @@ function asmFunc(env) {
   $1 = $1 | 0;
   $2 = $2 | 0;
   $3 = $3 | 0;
-  var $8 = 0, $6 = 0, $7 = 0, $4 = 0, $5 = 0;
+  var $8 = 0, $7 = 0, $6 = 0, $4 = 0, $5 = 0;
   $4 = HEAP32[($0 + 8 | 0) >> 2] | 0;
   if ($1 >>> 0 > ($4 >>> $2 | 0) >>> 0) {
    if ($1 >>> 0 > (1073741820 >>> $2 | 0) >>> 0) {
-    $lib_wasi_index_abort(608 | 0, 784 | 0, 17 | 0, 48 | 0);
+    $lib_wasi_index_abort(608 | 0, 784 | 0, 19 | 0, 48 | 0);
     abort();
    }
    $5 = HEAP32[$0 >> 2] | 0;
@@ -1350,10 +1355,9 @@ function asmFunc(env) {
     $8 = 1073741820;
     $8 = $7 >>> 0 < $8 >>> 0 ? $7 : $8;
     $7 = $6;
-    $6 = $8 >>> 0 > $6 >>> 0 ? $8 : $6;
+    $6 = $8 >>> 0 > $7 >>> 0 ? $8 : $7;
    }
    $8 = $lib_rt_itcms___renew($5 | 0, $6 | 0) | 0;
-   wasm2js_memory_fill($8 + $4 | 0, 0, $6 - $4 | 0);
    if (($8 | 0) != ($5 | 0)) {
     HEAP32[$0 >> 2] = $8;
     HEAP32[($0 + 4 | 0) >> 2] = $8;
@@ -1610,7 +1614,7 @@ function asmFunc(env) {
  }
  
  function $lib_rt_itcms___collect() {
-  var i64toi32_i32$1 = 0, i64toi32_i32$0 = 0, $0 = 0, $3 = 0;
+  var i64toi32_i32$0 = 0, i64toi32_i32$1 = 0, $0 = 0, $13$hi = 0, $14$hi = 0, $5 = 0;
   if (($lib_rt_itcms_state | 0) > (0 | 0)) {
    while_continue_0 : while (1) {
     $0 = ($lib_rt_itcms_state | 0) != (0 | 0);
@@ -1631,12 +1635,16 @@ function asmFunc(env) {
    break while_continue_1;
   };
   i64toi32_i32$0 = 0;
-  i64toi32_i32$1 = 0;
+  $13$hi = i64toi32_i32$0;
+  i64toi32_i32$0 = 0;
+  $14$hi = i64toi32_i32$0;
+  i64toi32_i32$0 = $13$hi;
+  i64toi32_i32$1 = $14$hi;
   i64toi32_i32$1 = __wasm_i64_mul($lib_rt_itcms_total | 0, i64toi32_i32$0 | 0, 200 | 0, i64toi32_i32$1 | 0) | 0;
   i64toi32_i32$0 = i64toi32_i32$HIGH_BITS;
-  $3 = i64toi32_i32$1;
+  $5 = i64toi32_i32$1;
   i64toi32_i32$1 = 0;
-  i64toi32_i32$1 = __wasm_i64_udiv($3 | 0, i64toi32_i32$0 | 0, 100 | 0, i64toi32_i32$1 | 0) | 0;
+  i64toi32_i32$1 = __wasm_i64_udiv($5 | 0, i64toi32_i32$0 | 0, 100 | 0, i64toi32_i32$1 | 0) | 0;
   i64toi32_i32$0 = i64toi32_i32$HIGH_BITS;
   $lib_rt_itcms_threshold = i64toi32_i32$1 + 1024 | 0;
  }
@@ -2167,13 +2175,12 @@ function asmFunc(env) {
   $stack_check();
   HEAP32[$lib_memory___stack_pointer >> 2] = 0;
   if ($1 >>> 0 > 1073741820 >>> 0) {
-   $lib_wasi_index_abort(608 | 0, 656 | 0, 49 | 0, 43 | 0);
+   $lib_wasi_index_abort(608 | 0, 656 | 0, 52 | 0, 43 | 0);
    abort();
   }
   $9 = $lib_memory___stack_pointer;
   $2 = $lib_rt_itcms___new($1 | 0, 0 | 0) | 0;
   HEAP32[$9 >> 2] = $2;
-  wasm2js_memory_fill($2, 0, $1);
   $lib_memory___stack_pointer = $lib_memory___stack_pointer + 4 | 0;
   return $2 | 0;
  }
@@ -2189,7 +2196,7 @@ function asmFunc(env) {
   $3 = $0;
   $4 = $3 + $1 | 0;
   if (!($4 >>> 0 >= $3 >>> 0)) {
-   $lib_wasi_index_abort(0 | 0, 128 | 0, 767 | 0, 7 | 0);
+   $lib_wasi_index_abort(0 | 0, 128 | 0, 769 | 0, 7 | 0);
    abort();
   }
   $25 = $lib_memory___stack_pointer;

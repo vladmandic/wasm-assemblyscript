@@ -59,6 +59,9 @@
  (global $~lib/as-wasi/as-wasi/Time.NANOSECOND (mut i32) (i32.const 1))
  (global $~lib/as-wasi/as-wasi/Time.MILLISECOND (mut i32) (i32.const 0))
  (global $~lib/as-wasi/as-wasi/Time.SECOND (mut i32) (i32.const 0))
+ (global $~lib/shared/runtime/Runtime.Stub i32 (i32.const 0))
+ (global $~lib/shared/runtime/Runtime.Minimal i32 (i32.const 1))
+ (global $~lib/shared/runtime/Runtime.Incremental i32 (i32.const 2))
  (global $~argumentsLength (mut i32) (i32.const 0))
  (global $~lib/rt/itcms/total (mut i32) (i32.const 0))
  (global $~lib/rt/itcms/threshold (mut i32) (i32.const 0))
@@ -71,6 +74,7 @@
  (global $~lib/rt/itcms/fromSpace (mut i32) (i32.const 0))
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
+ (global $~lib/ASC_RUNTIME i32 (i32.const 2))
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $~lib/builtins/i32.MAX_VALUE i32 (i32.const 2147483647))
  (global $~lib/rt/__rtti_base i32 (i32.const 1648))
@@ -154,6 +158,16 @@
      i32.const 1
      i32.add
      local.set $6
+     local.get $3
+     local.get $8
+     i32.eqz
+     i32.and
+     if
+      local.get $6
+      local.get $2
+      i32.sub
+      return
+     end
     else
      local.get $8
      i32.const 2048
@@ -287,7 +301,7 @@
         if
          i32.const 64
          i32.const 128
-         i32.const 739
+         i32.const 741
          i32.const 49
          call $~lib/wasi/index/abort
          unreachable
@@ -444,7 +458,6 @@
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
-  (local $8 i32)
   i32.const 0
   i32.const 12
   call $~lib/bindings/wasi_snapshot_preview1/iovec#set:buf
@@ -513,7 +526,7 @@
   local.get $6
   i32.add
   local.set $4
-  loop $do-continue|0
+  loop $do-loop|0
    local.get $2
    i32.const 10
    i32.div_u
@@ -531,9 +544,7 @@
    local.get $5
    local.set $2
    local.get $2
-   local.set $7
-   local.get $7
-   br_if $do-continue|0
+   br_if $do-loop|0
   end
   local.get $4
   local.get $6
@@ -554,7 +565,7 @@
   local.get $6
   i32.add
   local.set $4
-  loop $do-continue|1
+  loop $do-loop|1
    local.get $3
    i32.const 10
    i32.div_u
@@ -572,9 +583,7 @@
    local.get $7
    local.set $3
    local.get $3
-   local.set $8
-   local.get $8
-   br_if $do-continue|1
+   br_if $do-loop|1
   end
   local.get $4
   local.get $6
@@ -2071,7 +2080,6 @@
  )
  (func $~lib/rt/itcms/interrupt
   (local $0 i32)
-  (local $1 i32)
   i32.const 0
   drop
   i32.const 0
@@ -2082,7 +2090,7 @@
   i32.const 100
   i32.div_u
   local.set $0
-  loop $do-continue|0
+  loop $do-loop|0
    local.get $0
    call $~lib/rt/itcms/step
    i32.sub
@@ -2095,7 +2103,8 @@
     drop
     global.get $~lib/rt/itcms/total
     i64.extend_i32_u
-    i64.const 200
+    i32.const 200
+    i64.extend_i32_u
     i64.mul
     i64.const 100
     i64.div_u
@@ -2110,9 +2119,7 @@
    local.get $0
    i32.const 0
    i32.gt_s
-   local.set $1
-   local.get $1
-   br_if $do-continue|0
+   br_if $do-loop|0
   end
   i32.const 0
   drop
@@ -2851,7 +2858,7 @@
   end
   if
    block $do-break|0
-    loop $do-continue|0
+    loop $do-loop|0
      local.get $5
      i64.load
      local.get $6
@@ -2875,9 +2882,7 @@
      local.get $4
      i32.const 4
      i32.ge_u
-     local.set $7
-     local.get $7
-     br_if $do-continue|0
+     br_if $do-loop|0
     end
    end
   end
@@ -3031,7 +3036,7 @@
    if
     i32.const 608
     i32.const 784
-    i32.const 17
+    i32.const 19
     i32.const 48
     call $~lib/wasi/index/abort
     unreachable
@@ -3075,14 +3080,10 @@
    local.get $6
    call $~lib/rt/itcms/__renew
    local.set $8
-   local.get $8
-   local.get $4
-   i32.add
-   i32.const 0
-   local.get $6
-   local.get $4
-   i32.sub
-   memory.fill
+   i32.const 2
+   global.get $~lib/shared/runtime/Runtime.Incremental
+   i32.ne
+   drop
    local.get $8
    local.get $5
    i32.ne
@@ -3605,7 +3606,8 @@
   end
   global.get $~lib/rt/itcms/total
   i64.extend_i32_u
-  i64.const 200
+  i32.const 200
+  i64.extend_i32_u
   i64.mul
   i64.const 100
   i64.div_u
@@ -4533,7 +4535,7 @@
   if
    i32.const 608
    i32.const 656
-   i32.const 49
+   i32.const 52
    i32.const 43
    call $~lib/wasi/index/abort
    unreachable
@@ -4544,10 +4546,10 @@
   call $~lib/rt/itcms/__new
   local.tee $2
   i32.store
-  local.get $2
-  i32.const 0
-  local.get $1
-  memory.fill
+  i32.const 2
+  global.get $~lib/shared/runtime/Runtime.Incremental
+  i32.ne
+  drop
   local.get $2
   local.set $3
   global.get $~lib/memory/__stack_pointer
@@ -4589,7 +4591,7 @@
   if
    i32.const 0
    i32.const 128
-   i32.const 767
+   i32.const 769
    i32.const 7
    call $~lib/wasi/index/abort
    unreachable
